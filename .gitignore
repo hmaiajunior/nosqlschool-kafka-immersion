@@ -1,1 +1,8 @@
 slides/
+app/.venv/
+app/__pycache__/
+app/*.pyc
+app/.mypy_cache/
+app/.pytest_cache/
+app/.vscode/
+.venv/

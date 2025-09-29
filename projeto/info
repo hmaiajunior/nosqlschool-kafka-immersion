@@ -1,0 +1,20 @@
+O objetivo é montarmos um sistema de pagamento orientado a eventos com Apache Kafka que possua um sistema de validaçaõ de antifraude. Iremos focar no desacoplamento dos serviços e em testes utilizando producers e consumers escritos em Python. Para ajudar na visualização do fluxo de mensagens nos tópicos, iremos implementar o kafka-ui. Além disso, iremos implementar observabilidade com prometheus e grafana. Segue a arquitetura geral do que iremos implementar:
+
+==> tópicos:
+
+* pagamento.solicitado      -->     Cliente iniciou um pagamento
+* pagamento.validado        -->     Dados básicos do pagamento foram validados
+* pagamento.rejeitado       -->     Validação falhou
+* antifraude.verificado     -->     Resultado da verificação antifraude
+* pagamento.aprovado        -->     Pagamento aprovado após antifraude
+* pagamento.recusado        -->     Pagamento recusado por risco alto
+
+==> Producers:
+
+* api_pagamento             -->     Recebe requisição de pagamento	(Produz para pagamento.solicitado)
+
+==> Consumers:
+
+* validador_pagamento       -->     Valida estrutura e campos do pagamento	(Consome pagamento.solicitado --> Produz pagamento.validado ou pagamento.rejeitado)
+* servico_antifraude        -->     Avalia risco da transação	(Consome pagamento.validado --> Produz antifraude.verificado)
+* processador_pagamento     -->     Simula integração com gateway	(Consome antifraude.verificado --> Produz pagamento.processado)
