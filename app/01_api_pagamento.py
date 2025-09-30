@@ -21,7 +21,7 @@ def delivery_report(err, msg):
 # Gerador de pagamento aleatório
 def gerar_pagamento_aleatorio():
     pagamento_id = str(uuid.uuid4())
-    valor = round(random.uniform(10, 5000), 2)  # valores entre R$10 e R$5000
+    valor = round(random.uniform(10, 6000), 2)  # valores entre R$10 e R$5000
     metodo = random.choice(["cartao_credito", "pix", "boleto"])
     
     # Simular dados inválidos
