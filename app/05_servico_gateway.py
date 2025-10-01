@@ -25,7 +25,7 @@ def simular_gateway(evento):
     valor = evento.get("valor", 0)
     numero_cartao = evento.get("dados_pagamento", {}).get("numero_cartao", "")
 
-    if valor > 4000:
+    if valor > 5000:
         return "falhou", "limite insuficiente"
     elif numero_cartao.endswith("1234"):
         return "falhou", "cartão vencido"

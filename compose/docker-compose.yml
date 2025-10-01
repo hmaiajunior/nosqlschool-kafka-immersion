@@ -232,6 +232,22 @@ services:
       - kafka
     volumes:
       - grafana_data:/var/lib/grafana
+  kafka-exporter:
+    image: danielqsj/kafka-exporter:latest
+    container_name: kafka-exporter
+    restart: unless-stopped
+    ports:
+      - "9308:9308"
+    depends_on:
+      - broker-1
+      - broker-2
+      - broker-3
+    command: --kafka.server=broker-1:29091 --kafka.server=broker-2:29092 --kafka.server=broker-3:29093
+    environment:
+      KAFKA_BROKERS: "broker-1:29091,broker-2:29092,broker-3:29093"
+    networks:
+      - kafka
+  
 volumes:
   grafana_data:
     driver: local

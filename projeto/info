@@ -6,8 +6,10 @@ O objetivo é montarmos um sistema de pagamento orientado a eventos com Apache K
 * pagamento.validado        -->     Dados básicos do pagamento foram validados
 * pagamento.rejeitado       -->     Validação falhou
 * antifraude.verificado     -->     Resultado da verificação antifraude
-* pagamento.aprovado        -->     Pagamento aprovado após antifraude
-* pagamento.recusado        -->     Pagamento recusado por risco alto
+* pagamento.autorizado      -->     Pagamento aprovado após antifraude e pronto para ser enviado para o gateway
+* pagamento.recusado        -->     Pagamento recusado por risco alto definido no anti-fraude.
+* pagamento.falhou          -->     Gateway de pagamento recusa (saldo insuficiente, cartão vencido etc)
+* pagamento.confirmado      -->     Gateway de pagamento aprova o pagamento. Confirmação final.
 
 ==> Producers:
 
@@ -18,3 +20,4 @@ O objetivo é montarmos um sistema de pagamento orientado a eventos com Apache K
 * validador_pagamento       -->     Valida estrutura e campos do pagamento	(Consome pagamento.solicitado --> Produz pagamento.validado ou pagamento.rejeitado)
 * servico_antifraude        -->     Avalia risco da transação	(Consome pagamento.validado --> Produz antifraude.verificado)
 * processador_pagamento     -->     Simula integração com gateway	(Consome antifraude.verificado --> Produz pagamento.processado)
+* Gateway pagamento         -->     Confirma pagamentos autorizados (Consome pagamento.autorizado --> produz pagamento.confirmado e produz pagamento.falhou)

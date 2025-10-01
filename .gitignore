@@ -5,4 +5,6 @@ app/*.pyc
 app/.mypy_cache/
 app/.pytest_cache/
 app/.vscode/
+app/.env.*
+app/venv
 .venv/

@@ -26,7 +26,7 @@ def avaliar_risco(evento):
     numero_cartao = evento.get("dados_pagamento", {}).get("numero_cartao", "")
     cvv = evento.get("dados_pagamento", {}).get("cvv", "")
 
-    if valor > 3000:
+    if valor > 7000:
         return "alto"
     elif numero_cartao.endswith("9999") or cvv == "999":
         return "medio"
